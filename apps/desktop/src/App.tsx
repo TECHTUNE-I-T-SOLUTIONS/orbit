@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react'
-import { Mic, Send, X, Square, Settings, Minimize2, Download, Maximize2, Check, Cloud, HardDrive } from 'lucide-react'
+import { Mic, Send, X, Square, Settings, Minimize2, Download, RefreshCw, Check, Cloud, HardDrive } from 'lucide-react'
 
 // Define the API exposed by electron
 declare global {
@@ -487,16 +487,57 @@ function App() {
         )}
 
         <div className="flex items-center gap-1 shrink-0" style={{ WebkitAppRegion: 'no-drag' } as React.CSSProperties}>
+          <button onClick={() => { playClickSound(); setShowHistory(!showHistory); setShowSettings(false) }} className={`p-1.5 transition-colors ${showHistory ? 'text-[#6EE7B7]' : 'text-[#8B949E] hover:text-[#E6EAF0]'}`} title="Chat History">
+            <RefreshCw size={16} />
+          </button>
           <button onClick={toggleCollapse} className="p-1.5 text-[#8B949E] hover:text-[#E6EAF0] transition-colors" title="Collapse">
             <Minimize2 size={16} />
           </button>
-          <button onClick={() => { playClickSound(); setShowSettings(!showSettings) }} className={`p-1.5 transition-colors ${showSettings ? 'text-[#6EE7B7]' : 'text-[#8B949E] hover:text-[#E6EAF0]'}`} title="Settings">
+          <button onClick={() => { playClickSound(); setShowSettings(!showSettings); setShowHistory(false) }} className={`p-1.5 transition-colors ${showSettings ? 'text-[#6EE7B7]' : 'text-[#8B949E] hover:text-[#E6EAF0]'}`} title="Settings">
             <Settings size={16} />
           </button>
         </div>
       </div>
 
-      {showSettings ? (
+      {!userProfile ? (
+        <div className="flex-1 p-6 bg-transparent flex flex-col justify-center z-10 custom-scrollbar overflow-y-auto">
+          <div className="bg-[#12161B]/90 backdrop-blur-md p-6 rounded-xl border border-[#6EE7B7]/30 shadow-[0_0_20px_rgba(110,231,183,0.1)]">
+            <h2 className="text-2xl font-bold text-[#6EE7B7] mb-2 text-center">Welcome to Orbit</h2>
+            <p className="text-sm text-[#8B949E] text-center mb-6">Let's personalize your AI companion.</p>
+            
+            <div className="space-y-4">
+              <div>
+                <label className="block text-xs font-medium text-[#8B949E] mb-1">What should I call you?</label>
+                <input 
+                  type="text" 
+                  value={onboardingName}
+                  onChange={e => setOnboardingName(e.target.value)}
+                  placeholder="e.g. Commander, Alice..." 
+                  className="w-full bg-[#0B0D10]/80 border border-[#252B33] rounded px-3 py-2 text-sm outline-none focus:border-[#6EE7B7] transition-colors"
+                />
+              </div>
+              
+              <div>
+                <label className="block text-xs font-medium text-[#8B949E] mb-1">What do you do? (Context for the AI)</label>
+                <textarea 
+                  value={onboardingBio}
+                  onChange={e => setOnboardingBio(e.target.value)}
+                  placeholder="e.g. I am a software engineer building React apps. I prefer concise code." 
+                  className="w-full bg-[#0B0D10]/80 border border-[#252B33] rounded px-3 py-2 text-sm outline-none focus:border-[#6EE7B7] transition-colors resize-none h-24"
+                />
+              </div>
+              
+              <button 
+                onClick={handleSaveOnboarding}
+                disabled={!onboardingName.trim()}
+                className="w-full bg-[#6EE7B7] text-[#0B0D10] py-2.5 rounded font-bold uppercase tracking-wider hover:bg-opacity-90 transition-colors disabled:opacity-50 mt-4"
+              >
+                Initialize Orbit
+              </button>
+            </div>
+          </div>
+        </div>
+      ) : showSettings ? (
         <div className="flex-1 p-6 bg-transparent overflow-y-auto custom-scrollbar flex flex-col z-10">
           <div className="flex justify-between items-center mb-6">
             <h2 className="text-lg font-semibold text-[#6EE7B7]">App Settings</h2>

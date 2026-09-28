@@ -39,10 +39,10 @@ function toggleWindow() {
 }
 
 app.whenReady().then(() => {
-  session.defaultSession.setPermissionRequestHandler((webContents, permission, callback) => {
+  session.defaultSession.setPermissionRequestHandler((_webContents, _permission, callback) => {
     callback(true)
   })
-  session.defaultSession.setPermissionCheckHandler((webContents, permission) => {
+  session.defaultSession.setPermissionCheckHandler((_webContents, _permission) => {
     return true
   })
 
@@ -97,7 +97,7 @@ app.on('will-quit', () => {
   globalShortcut.unregisterAll()
 })
 
-ipcMain.handle('send-message-to-agent', async (event, message) => {
+ipcMain.handle('send-message-to-agent', async (_event, message) => {
   try {
     const response = await fetch('http://127.0.0.1:8000/api/chat', {
       method: 'POST',
@@ -112,7 +112,7 @@ ipcMain.handle('send-message-to-agent', async (event, message) => {
   }
 })
 
-ipcMain.on('resize-window', (event, width, height) => {
+ipcMain.on('resize-window', (_event, width, height) => {
   if (mainWindow) {
     mainWindow.setSize(width, height)
   }
