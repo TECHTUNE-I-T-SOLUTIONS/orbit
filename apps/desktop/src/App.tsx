@@ -445,7 +445,7 @@ function App() {
         playsInline 
         className="absolute inset-0 w-full h-full object-cover opacity-30 pointer-events-none z-0"
       >
-        <source src="/bg-compressed.webm" type="video/webm" />
+        <source src="./bg-compressed.webm" type="video/webm" />
       </video>
       <div className="absolute inset-0 bg-gradient-to-b from-[#0B0D10]/80 to-[#0B0D10]/95 pointer-events-none z-0" />
 
@@ -454,7 +454,7 @@ function App() {
       {/* Header (Drag Area) */}
       <div className="h-12 flex items-center justify-between px-3 bg-[#12161B]/80 backdrop-blur-sm border-b border-[#252B33]" style={{ WebkitAppRegion: 'drag' } as React.CSSProperties}>
         <div className="flex items-center gap-2 shrink-0">
-          <img src="/icon.png" alt="Logo" className="w-5 h-5 rounded-full pointer-events-none" />
+          <img src="./icon.png" alt="Logo" className="w-5 h-5 rounded-full pointer-events-none" />
           <div className="text-xs font-bold tracking-widest text-[#E6EAF0]">ORBIT</div>
         </div>
         

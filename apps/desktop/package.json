@@ -47,7 +47,15 @@
       }
     ],
     "win": {
-      "target": ["nsis"]
-    }
+      "target": ["nsis"],
+      "icon": "public/icon.png"
+    },
+    "directories": {
+      "buildResources": "public"
+    },
+    "files": [
+      "dist-electron/**/*",
+      "dist/**/*"
+    ]
   }
 }

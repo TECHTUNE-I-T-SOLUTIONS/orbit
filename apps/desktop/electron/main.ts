@@ -13,7 +13,7 @@ function createWindow() {
     frame: false,
     transparent: true,
     resizable: false,
-    icon: join(__dirname, '../../public/icon.png'),
+    icon: join(__dirname, '../dist/icon.png'),
     webPreferences: {
       preload: join(__dirname, 'preload.js'),
       nodeIntegration: true,
@@ -52,7 +52,7 @@ app.whenReady().then(() => {
   autoUpdater.checkForUpdatesAndNotify()
 
   try {
-    tray = new Tray(join(__dirname, '../../public/icon.png'))
+    tray = new Tray(join(__dirname, '../dist/icon.png'))
     const contextMenu = Menu.buildFromTemplate([
       { label: 'Open Orbit', click: () => {
           if (mainWindow) {
