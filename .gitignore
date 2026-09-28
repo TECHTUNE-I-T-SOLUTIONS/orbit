@@ -1,0 +1,10 @@
+# Ignore large video assets
+*.mp4
+*.mov
+*.webm
+
+node_modules/
+dist/
+.env
+venv/
+__pycache__/
