@@ -173,17 +173,6 @@ function App() {
       } catch (e) {}
     }
   }, [])
-    if (provider !== 'local') {
-      const models = CLOUD_MODELS[provider]
-      if (models && !models.includes(selectedModel)) {
-        setSelectedModel(models[0])
-      }
-    } else {
-      if (localModels.length > 0 && !localModels.find(m => m.name === selectedModel)) {
-        setSelectedModel(localModels[0].name)
-      }
-    }
-  }, [provider, localModels])
 
   const fetchLocalModels = async () => {
     if (provider !== 'local' && !showSettings) return
