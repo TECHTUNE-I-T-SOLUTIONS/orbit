@@ -445,7 +445,7 @@ function App() {
         playsInline 
         className="absolute inset-0 w-full h-full object-cover opacity-30 pointer-events-none z-0"
       >
-        <source src="/258439.mp4" type="video/mp4" />
+        <source src="/bg-compressed.webm" type="video/webm" />
       </video>
       <div className="absolute inset-0 bg-gradient-to-b from-[#0B0D10]/80 to-[#0B0D10]/95 pointer-events-none z-0" />
 
