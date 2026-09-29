@@ -36,7 +36,6 @@ jobs:
         pip install -r requirements.txt
         pip install pyinstaller
         pyinstaller --name orbit-backend --onefile --noconsole agent/api/main.py
-        mkdir -p apps/desktop/public
         cp dist/orbit-backend.exe apps/desktop/public/orbit-backend.exe
 
     - name: Install Dependencies
