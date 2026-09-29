@@ -110,4 +110,6 @@ async def transcribe(file: UploadFile = File(...), api_key: str = Form(None)):
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run("agent.api.main:app", host="127.0.0.1", port=8000, reload=True)
+    import multiprocessing
+    multiprocessing.freeze_support()
+    uvicorn.run(app, host="127.0.0.1", port=8000, reload=False)

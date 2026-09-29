@@ -1,6 +1,9 @@
 import { app, BrowserWindow, ipcMain, globalShortcut, Tray, Menu, session } from 'electron'
 import { autoUpdater } from 'electron-updater'
 import { join } from 'path'
+import { spawn, ChildProcess } from 'child_process'
+
+let backendProcess: ChildProcess | null = null
 
 let mainWindow: BrowserWindow | null = null
 let tray: Tray | null = null
@@ -45,6 +48,19 @@ app.whenReady().then(() => {
   session.defaultSession.setPermissionCheckHandler((_webContents, _permission) => {
     return true
   })
+
+  // Start the Python Backend in production
+  if (!process.env.VITE_DEV_SERVER_URL) {
+    const backendPath = join(process.resourcesPath, 'orbit-backend.exe')
+    try {
+      backendProcess = spawn(backendPath, [], { detached: false })
+      backendProcess.on('error', (err) => {
+        console.error('Failed to start Python backend:', err)
+      })
+    } catch (e) {
+      console.error('Error spawning backend:', e)
+    }
+  }
 
   createWindow()
   
@@ -95,6 +111,9 @@ app.on('window-all-closed', () => {
 
 app.on('will-quit', () => {
   globalShortcut.unregisterAll()
+  if (backendProcess) {
+    backendProcess.kill()
+  }
 })
 
 ipcMain.handle('send-message-to-agent', async (_event, message) => {

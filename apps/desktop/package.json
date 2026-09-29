@@ -53,6 +53,12 @@
     "directories": {
       "buildResources": "public"
     },
+    "extraResources": [
+      {
+        "from": "public/orbit-backend.exe",
+        "to": "orbit-backend.exe"
+      }
+    ],
     "files": [
       "dist-electron/**/*",
       "dist/**/*"
